@@ -1,12 +1,13 @@
 import * as $ from "jquery";
 import { PuzzleEnglishPage } from "../puzzle-english.page";
-import PuzzleEnglishHelper from "./puzzle-english.helper";
+import PuzzleEnglishBaseHelper from './puzzle-english-base.helper'
 
 /**
  * Хелпер для упражнения "Соберите паззл"
  * Добавляет управление с клавиатуры
  */
-class PuzzlesTestHelper extends PuzzleEnglishHelper {
+
+class PuzzlesTestHelper extends PuzzleEnglishBaseHelper {
   keydownListener = this.onKeyDown.bind(this)
   $variants: JQuery<HTMLElement> = $([])
   $answerChars: JQuery<HTMLElement> = $([])

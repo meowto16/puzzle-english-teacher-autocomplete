@@ -1,22 +1,16 @@
 import PuzzlesTestHelper from './puzzles-test.helper'
+import PuzzleEnglishBaseHelper from './puzzle-english-base.helper'
 
 export type PuzzleEnglishHelperSelector = 'puzzles_test'
 
 class PuzzleEnglishHelper {
-  public static currentHelper: PuzzleEnglishHelper
-  private static selectorToHelperMap: Record<PuzzleEnglishHelperSelector, typeof PuzzleEnglishHelper> = {
+  public static currentHelper: PuzzleEnglishBaseHelper
+  private static selectorToHelperMap: Record<PuzzleEnglishHelperSelector, typeof PuzzleEnglishBaseHelper> = {
     'puzzles_test': PuzzlesTestHelper
   }
 
-  init () {
-    console.error('PuzzleEnglishHelper class error. You must initialize "init" method in your helper')
-  }
-  destroy () {
-    console.error('PuzzleEnglishHelper class error. You must initialize "destroy" method in your helper')
-  }
-
   static defineHelperClass($item: JQuery): PuzzleEnglishHelperSelector {
-    if ($item.hasClass('.puzzles_test')) return 'puzzles_test'
+    if ($item.hasClass('puzzles_test')) return 'puzzles_test'
   }
 
   static defineCurrentHelper(selector: string) {
@@ -26,7 +20,7 @@ class PuzzleEnglishHelper {
     else return new Helper()
   }
 
-  static setCurrentHelper(helper: PuzzleEnglishHelper) {
+  static setCurrentHelper(helper: PuzzleEnglishBaseHelper) {
     PuzzleEnglishHelper.currentHelper = helper
   }
 }

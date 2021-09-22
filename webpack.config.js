@@ -6,6 +6,8 @@ const webpack = require("webpack"),
     CopyWebpackPlugin = require("copy-webpack-plugin"),
     HtmlWebpackPlugin = require("html-webpack-plugin"),
     WriteFilePlugin = require("write-file-webpack-plugin");
+    CircularDependencyPlugin = require('circular-dependency-plugin')
+
 
 // load the secrets
 const alias = {};
@@ -21,7 +23,8 @@ if (fileSystem.existsSync(secretsPath)) {
 const options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
-    content: path.join(__dirname, "src", "js", "content.ts"),
+    content: path.join(__dirname, "src", "js", "teacher", "content_scripts", "index.ts"),
+    background: path.join(__dirname, "src", "js", "teacher", "background_scripts", "index.ts"),
   },
   output: {
     path: path.join(__dirname, "build"),
@@ -71,8 +74,9 @@ const options = {
           version: process.env.npm_package_version,
           ...JSON.parse(content.toString())
         }))
-      }
-    }]),
+      },
+      to: "[name].[ext]"
+    }, { from: "src/img/*", to: "img/[name].[ext]" }]),
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname, "src", "popup.html"),
     //   filename: "popup.html",
@@ -88,7 +92,14 @@ const options = {
     //   filename: "background.html",
     //   chunks: ["background"]
     // }),
-    new WriteFilePlugin()
+    new WriteFilePlugin(),
+    new CircularDependencyPlugin({
+      exclude: /a\.js|node_modules/,
+      include: /src/,
+      failOnError: true,
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
+    })
   ]
 };
 
