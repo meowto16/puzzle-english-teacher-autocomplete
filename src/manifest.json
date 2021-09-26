@@ -7,7 +7,8 @@
   },
   "content_scripts": [{
     "matches": ["*://*.puzzle-english.com/*"],
-    "js": ["content.bundle.js"]
+    "js": ["content.bundle.js"],
+    "css": ["index.css"]
   }],
   "icons": {
     "16": "./img/icon-32.png",

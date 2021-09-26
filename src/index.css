@@ -1,0 +1,29 @@
+.pz-puzzle--active .puzzle-figure {
+    background-color: #0091d7;
+}
+
+.pz-puzzle--active .puzzle-figure .puzzle-icon svg path {
+    fill: #0091d7;
+}
+
+.pz-puzzle--active .puzzle-text b {
+    font-weight: 800;
+}
+
+.zoom-in {
+    animation: zoomIn 0.250s ease-in forwards;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
